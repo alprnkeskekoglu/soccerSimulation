@@ -2,6 +2,7 @@
 
 namespace App\Contracts;
 
+use App\Models\Fixture;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -24,6 +25,13 @@ interface TeamInterface
      */
     public function getChampionshipRate(Team $team): float;
 
+
+    /**
+     * @param Fixture $fixture
+     * @param array $data
+     * @return void
+     */
+    public function update(Fixture $fixture, array $data): void;
 
     /**
      * @param Team $team

@@ -16,14 +16,17 @@ return new class extends Migration
         Schema::create('fixtures', function (Blueprint $table) {
             $table->id();
             $table->unsignedTinyInteger('week');
-            $table->string('home_team_id')->nullable();
-            $table->string('away_team_id')->nullable();
+            $table->unsignedBigInteger('home_team_id')->nullable();
+            $table->unsignedBigInteger('away_team_id')->nullable();
+            $table->integer('home_team_score')->nullable();
+            $table->integer('away_team_score')->nullable();
+            $table->boolean('played')->default(false);
         });
     }
 
     /**
      * Reverse the migrations.
-     *
+ *
      * @return void
      */
     public function down()

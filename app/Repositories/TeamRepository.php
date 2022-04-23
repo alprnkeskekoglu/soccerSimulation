@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Contracts\TeamInterface;
+use App\Models\Fixture;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -39,6 +40,30 @@ class TeamRepository implements TeamInterface
     public function getChampionshipRate(Team $team): float
     {
         // TODO: Implement getChampionshipRate() method.
+    }
+
+    /**
+     * @param Fixture $fixture
+     * @param array $data
+     * @return void
+     */
+    public function update(Fixture $fixture, array $data): void
+    {
+        $homeTeam = $fixture->homeTeam;
+        $awayTeam = $fixture->awayTeam;
+        $homeScore = $data['home_team_score'];
+        $awayScore = $data['away_team_score'];
+
+        if($homeScore > $awayScore) {
+            $this->won($homeTeam, $homeScore, $awayScore);
+            $this->lost($awayTeam, $awayScore, $homeScore);
+        } elseif ($homeScore < $awayScore) {
+            $this->won($awayTeam, $awayScore, $homeScore);
+            $this->lost($homeTeam, $homeScore, $awayScore);
+        } else {
+            $this->drawn($homeTeam, $homeScore, $awayScore);
+            $this->drawn($awayTeam, $awayScore, $homeScore);
+        }
     }
 
     /**

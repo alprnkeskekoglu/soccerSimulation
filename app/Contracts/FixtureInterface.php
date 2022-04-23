@@ -10,14 +10,19 @@ interface FixtureInterface
 {
     /**
      * @param int $week
-     * @return Fixture
+     * @return Collection
      */
-    public function getByWeek(int $week): Fixture;
+    public function getByWeek(int $week): Collection;
 
     /**
      * @return Collection
      */
     public function getAll(): Collection;
+
+    /**
+     * @return Collection
+     */
+    public function getUnplayedMatches(): Collection;
 
     /**
      * @param Team $team

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,8 +12,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $week
  * @property int $home_team_id
  * @property int $away_team_id
- * @property-read Carbon $created_at
- * @property-read Carbon $updated_at
+ * @property int $home_team_score
+ * @property int $away_team_score
+ * @property boolean $played
+ * @mixin Builder
  */
 
 class Fixture extends Model
@@ -22,8 +25,9 @@ class Fixture extends Model
         'week',
         'home_team_id',
         'away_team_id',
-        'created_at',
-        'updated_at'
+        'home_team_score',
+        'away_team_score',
+        'played'
     ];
     public $timestamps = false;
 
