@@ -8,7 +8,6 @@ use App\Repositories\FixtureRepository;
 use App\Repositories\TeamRepository;
 use App\Services\FixtureGenerateService;
 use App\Services\GamePlayService;
-use Illuminate\Http\Request;
 
 class FixtureController extends Controller
 {
@@ -32,8 +31,19 @@ class FixtureController extends Controller
         return response()->json($data);
     }
 
+    public function getByWeek(int $week)
+    {
+        $fixtures = $this->fixtureRepository->getByWeek($week);
+        $data = FixtureResource::collection($fixtures);
+        return response()->json($data);
+    }
+
     public function generate()
     {
+        if(Fixture::exists()) {
+            return response()->json(['message' => 'Fixtures already generated']);
+        }
+
         $teams = $this->teamRepository->getAll();
         $fixtures = $this->fixtureGenerateService->generate($teams->toArray());
 

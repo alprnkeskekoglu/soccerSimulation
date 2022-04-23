@@ -42,4 +42,19 @@ interface FixtureInterface
      * @return Fixture
      */
     public function update(Fixture $fixture, array $data): Fixture;
+
+    /**
+     * @return int
+     */
+    public function getLastWeek(): int;
+
+    /**
+     * @return int
+     */
+    public function getWeekCount(): int;
+
+    /**
+     * @return bool
+     */
+    public function checkFixtureIsGenerated(): bool;
 }

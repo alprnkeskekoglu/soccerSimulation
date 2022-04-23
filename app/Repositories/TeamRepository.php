@@ -30,7 +30,7 @@ class TeamRepository implements TeamInterface
      */
     public function getAll(): Collection
     {
-        return $this->model->all();
+        return $this->model->orderByDesc('points')->get();
     }
 
     /**

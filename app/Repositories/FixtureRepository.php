@@ -6,6 +6,7 @@ use App\Contracts\FixtureInterface;
 use App\Models\Fixture;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Artisan;
 
 class FixtureRepository implements FixtureInterface
 {
@@ -81,5 +82,50 @@ class FixtureRepository implements FixtureInterface
         $fixture->update($data);
 
         return $fixture;
+    }
+
+    public function refresh()
+    {
+        Artisan::call('migrate:refresh', ['--seed' => true]);
+    }
+
+    /**
+     * @return int
+     */
+    public function getLastWeek(): int
+    {
+        $fixture = $this->model->where('played', true)
+            ->whereNotNull(['home_team_id', 'away_team_id'])
+            ->groupBy('week')
+            ->orderByDesc('week')
+            ->first();
+        if ($fixture) {
+            return $fixture->week + 1;
+        }
+        return 1;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWeekCount(): int
+    {
+        $fixture = $this->model->whereNotNull(['home_team_id', 'away_team_id'])
+            ->groupBy('week')
+            ->orderByDesc('week')
+            ->first();
+
+        if ($fixture) {
+            return $fixture->week;
+        }
+        return 1;
+    }
+
+    /**
+     * @return bool
+     */
+    public function checkFixtureIsGenerated(): bool
+    {
+        return $this->model->exists();
     }
 }
