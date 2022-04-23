@@ -36,6 +36,14 @@ class FixtureRepository implements FixtureInterface
     /**
      * @return Collection
      */
+    public function getGroupedByWeek(): Collection
+    {
+        return $this->model->all()->groupBy('week');
+    }
+
+    /**
+     * @return Collection
+     */
     public function getUnplayedMatches(): Collection
     {
         return $this->model->where('played', false)->get();
