@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('fixtures', function (Blueprint $table) {
             $table->id();
+            $table->unsignedTinyInteger('week');
             $table->string('home_team_id');
             $table->string('away_team_id');
-            $table->unsignedTinyInteger('home_team_score')->default(0);
-            $table->unsignedTinyInteger('away_team_score')->default(0);
             $table->timestamps();
         });
     }

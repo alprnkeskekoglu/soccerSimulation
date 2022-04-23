@@ -17,6 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedTinyInteger('power');
+            $table->unsignedTinyInteger('points')->default(0);
+            $table->unsignedTinyInteger('won')->default(0);
+            $table->unsignedTinyInteger('draw')->default(0);
+            $table->unsignedTinyInteger('lost')->default(0);
+            $table->unsignedTinyInteger('goal_for')->default(0);
+            $table->unsignedTinyInteger('goal_against')->default(0);
             $table->timestamps();
         });
     }
