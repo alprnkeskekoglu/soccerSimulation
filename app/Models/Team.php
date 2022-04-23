@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $power
  * @property int $points
  * @property int $won,
- * @property int $draw,
+ * @property int $drawn,
  * @property int $lost,
  * @property int $goals_for,
  * @property int $goals_against,
@@ -25,10 +25,10 @@ class Team extends Model
         'power',
         'points',
         'won',
-        'draw',
+        'drawn',
         'lost',
-        'goal_for',
-        'goal_against',
+        'goals_for',
+        'goals_against',
         'created_at',
         'updated_at',
     ];
