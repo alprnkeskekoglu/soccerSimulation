@@ -18,6 +18,11 @@
     </div>
 </div>
 <div id="app">
+    <div class="text-center" v-if="loading">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only"></span>
+        </div>
+    </div>
     @yield('content')
 </div>
 

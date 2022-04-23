@@ -45,6 +45,7 @@ export default {
     },
     methods: {
         generate() {
+            this.$root.loading = true;
             axios.get('/api/fixtures/generate')
                 .then(response => this.message = response.data.message)
                 .catch(error => console.log(error))
@@ -54,6 +55,7 @@ export default {
             axios.get('/api/fixtures/get-grouped-by-week')
                 .then(response => this.fixtures = response.data)
                 .catch(error => console.log(error))
+                .finally(() => this.$root.loading = false);
         }
     }
 }

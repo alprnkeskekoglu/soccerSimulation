@@ -31,4 +31,7 @@ Vue.component('simulation', require('./components/Simulation.vue').default);
 
 const app = new Vue({
     el: '#app',
+    data: {
+        loading: false,
+    }
 });

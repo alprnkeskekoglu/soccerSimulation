@@ -107,7 +107,6 @@ export default {
     },
     watch: {
         week(value) {
-
             this.getFixtureByWeek();
             this.getFixtures();
             this.getTeams();
@@ -152,14 +151,18 @@ export default {
                 .catch(error => console.log(error))
         },
         playAll() {
+            this.$root.loading = true;
             axios.get('/api/simulations/play-all')
                 .then(response => this.week = this.weekCount)
                 .catch(error => console.log(error))
+                .finally(() => this.$root.loading = false);
         },
         refresh() {
+            this.$root.loading = true;
             axios.get('/api/simulations/refresh')
                 .then(response => this.week = 1)
                 .catch(error => console.log(error))
+                .finally(() => this.$root.loading = false);
         }
     }
 }
