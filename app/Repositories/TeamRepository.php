@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Contracts\TeamInterface;
 use App\Models\Team;
+use Illuminate\Database\Eloquent\Collection;
 
 class TeamRepository implements TeamInterface
 {
@@ -23,11 +24,29 @@ class TeamRepository implements TeamInterface
         return $this->model->find($id);
     }
 
+    /**
+     * @return Collection
+     */
+    public function getAll(): Collection
+    {
+        return $this->model->all();
+    }
+
+    /**
+     * @param Team $team
+     * @return float
+     */
     public function getChampionshipRate(Team $team): float
     {
         // TODO: Implement getChampionshipRate() method.
     }
 
+    /**
+     * @param Team $team
+     * @param int $goalsFor
+     * @param int $goalsAgainst
+     * @return void
+     */
     public function won(Team $team, int $goalsFor, int $goalsAgainst): void
     {
         $team->won++;
@@ -37,6 +56,12 @@ class TeamRepository implements TeamInterface
         $team->save();
     }
 
+    /**
+     * @param Team $team
+     * @param int $goalsFor
+     * @param int $goalsAgainst
+     * @return void
+     */
     public function drawn(Team $team, int $goalsFor, int $goalsAgainst): void
     {
         $team->drawn++;
@@ -46,6 +71,12 @@ class TeamRepository implements TeamInterface
         $team->save();
     }
 
+    /**
+     * @param Team $team
+     * @param int $goalsFor
+     * @param int $goalsAgainst
+     * @return void
+     */
     public function lost(Team $team, int $goalsFor, int $goalsAgainst): void
     {
         $team->lost++;

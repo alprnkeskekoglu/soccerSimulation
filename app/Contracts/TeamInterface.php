@@ -3,6 +3,7 @@
 namespace App\Contracts;
 
 use App\Models\Team;
+use Illuminate\Database\Eloquent\Collection;
 
 interface TeamInterface
 {
@@ -11,6 +12,11 @@ interface TeamInterface
      * @return Team
      */
     public function getById(int $id): Team;
+
+    /**
+     * @return Collection
+     */
+    public function getAll(): Collection;
 
     /**
      * @param Team $team

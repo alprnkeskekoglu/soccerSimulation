@@ -19,5 +19,6 @@ class TeamSeeder extends Seeder
         Team::create(['name' => 'Manchester City', 'power' => '4']);
         Team::create(['name' => 'Chelsea', 'power' => '3']);
         Team::create(['name' => 'Arsenal', 'power' => '3']);
+        Team::create(['name' => 'Tottenham', 'power' => '2']);
     }
 }
