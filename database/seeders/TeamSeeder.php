@@ -19,11 +19,12 @@ class TeamSeeder extends Seeder
         Team::create(['name' => 'Manchester City', 'power' => rand(30, 100)]);
         Team::create(['name' => 'Chelsea', 'power' => rand(30, 100)]);
         Team::create(['name' => 'Arsenal', 'power' => rand(30, 100)]);
-        Team::create(['name' => 'Tottenham', 'power' => rand(30, 100)]);
-        Team::create(['name' => 'Manchester United', 'power' => rand(30, 100)]);
-        Team::create(['name' => 'Everton', 'power' => rand(30, 100)]);
-        Team::create(['name' => 'Watford', 'power' => rand(30, 100)]);
-        Team::create(['name' => 'Leicester', 'power' => rand(30, 100)]);
+
+//        Team::create(['name' => 'Tottenham', 'power' => rand(30, 100)]);
+//        Team::create(['name' => 'Manchester United', 'power' => rand(30, 100)]);
+//        Team::create(['name' => 'Everton', 'power' => rand(30, 100)]);
+//        Team::create(['name' => 'Watford', 'power' => rand(30, 100)]);
+//        Team::create(['name' => 'Leicester', 'power' => rand(30, 100)]);
 
 //        Team::create(['name' => 'Bournemouth', 'power' => rand(30, 100)]);
 //        Team::create(['name' => 'Brighton', 'power' => rand(30, 100)]);

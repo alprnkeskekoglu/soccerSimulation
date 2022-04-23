@@ -20,7 +20,7 @@ class FixtureGenerateService
         $halfTeamCount = $teamsCount / 2;
         $weeks = $this->getWeeks($teamsCount);
 
-        if($shuffle) {
+        if ($shuffle) {
             $this->shuffle($teams);
         }
 

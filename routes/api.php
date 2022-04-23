@@ -13,6 +13,7 @@ Route::controller(FixtureController::class)->prefix('fixtures')->group(function 
 Route::controller(SimulationController::class)->prefix('simulations')->group(function () {
     Route::get('get-last-week', 'getLastWeek');
     Route::get('get-week-count', 'getWeekCount');
+    Route::get('get-predictions', 'getPredictions');
     Route::get('play/{week}', 'play');
     Route::get('play-all', 'playAll');
     Route::get('refresh', 'refresh');

@@ -54,6 +54,11 @@ interface FixtureInterface
     public function getWeekCount(): int;
 
     /**
+     * @return int
+     */
+    public function getRemainingWeekCount(): int;
+
+    /**
      * @return bool
      */
     public function checkFixtureIsGenerated(): bool;

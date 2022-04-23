@@ -8,6 +8,7 @@ use App\Repositories\FixtureRepository;
 use App\Repositories\TeamRepository;
 use App\Services\FixtureGenerateService;
 use App\Services\GamePlayService;
+use App\Services\PredictionService;
 
 class FixtureController extends Controller
 {
@@ -15,6 +16,7 @@ class FixtureController extends Controller
         protected TeamRepository         $teamRepository,
         protected FixtureRepository      $fixtureRepository,
         protected FixtureGenerateService $fixtureGenerateService,
+        protected PredictionService      $predictionService,
         protected GamePlayService        $gamePlayService
     )
     {
@@ -40,7 +42,11 @@ class FixtureController extends Controller
 
     public function generate()
     {
-        if(Fixture::exists()) {
+        $teams = $this->teamRepository->getAll();
+        foreach ($teams as $team) {
+            $this->predictionService->predict();
+        }
+        if (Fixture::exists()) {
             return response()->json(['message' => 'Fixtures already generated']);
         }
 

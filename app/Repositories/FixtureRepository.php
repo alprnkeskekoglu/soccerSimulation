@@ -95,7 +95,6 @@ class FixtureRepository implements FixtureInterface
     public function getLastWeek(): int
     {
         $fixture = $this->model->where('played', true)
-            ->whereNotNull(['home_team_id', 'away_team_id'])
             ->groupBy('week')
             ->orderByDesc('week')
             ->first();
@@ -110,8 +109,7 @@ class FixtureRepository implements FixtureInterface
      */
     public function getWeekCount(): int
     {
-        $fixture = $this->model->whereNotNull(['home_team_id', 'away_team_id'])
-            ->groupBy('week')
+        $fixture = $this->model->groupBy('week')
             ->orderByDesc('week')
             ->first();
 
@@ -119,6 +117,17 @@ class FixtureRepository implements FixtureInterface
             return $fixture->week;
         }
         return 1;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRemainingWeekCount(): int
+    {
+        return $this->model->where('played', false)
+            ->groupBy('week')
+            ->get()
+            ->count();
     }
 
     /**

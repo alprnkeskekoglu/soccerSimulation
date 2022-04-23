@@ -7,6 +7,7 @@ use App\Repositories\FixtureRepository;
 use App\Repositories\TeamRepository;
 use App\Services\FixtureGenerateService;
 use App\Services\GamePlayService;
+use App\Services\PredictionService;
 
 class SimulationController extends Controller
 {
@@ -14,7 +15,8 @@ class SimulationController extends Controller
         protected TeamRepository         $teamRepository,
         protected FixtureRepository      $fixtureRepository,
         protected FixtureGenerateService $fixtureGenerateService,
-        protected GamePlayService        $gamePlayService
+        protected GamePlayService        $gamePlayService,
+        protected PredictionService      $predictionService
     )
     {
     }
@@ -29,6 +31,12 @@ class SimulationController extends Controller
     {
         $week = $this->fixtureRepository->getWeekCount();
         return response()->json($week);
+    }
+
+    public function getPredictions()
+    {
+        $data = $this->predictionService->predict();
+        return response()->json($data);
     }
 
     public function play(int $week)
@@ -63,10 +71,11 @@ class SimulationController extends Controller
 
     private function playGame(Fixture $fixture)
     {
+        $result = [];
         if ($fixture->homeTeam && $fixture->awayTeam) {
             $result = $this->gamePlayService->play($fixture);
-            $this->fixtureRepository->update($fixture, $result);
             $this->teamRepository->update($fixture, $result);
         }
+        $this->fixtureRepository->update($fixture, $result);
     }
 }

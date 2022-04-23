@@ -54,7 +54,7 @@ class TeamRepository implements TeamInterface
         $homeScore = $data['home_team_score'];
         $awayScore = $data['away_team_score'];
 
-        if($homeScore > $awayScore) {
+        if ($homeScore > $awayScore) {
             $this->won($homeTeam, $homeScore, $awayScore);
             $this->lost($awayTeam, $awayScore, $homeScore);
         } elseif ($homeScore < $awayScore) {

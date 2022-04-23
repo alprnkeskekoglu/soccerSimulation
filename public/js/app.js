@@ -5416,6 +5416,7 @@ __webpack_require__.r(__webpack_exports__);
     generate: function generate() {
       var _this = this;
 
+      this.$root.loading = true;
       axios.get('/api/fixtures/generate').then(function (response) {
         return _this.message = response.data.message;
       })["catch"](function (error) {
@@ -5431,6 +5432,8 @@ __webpack_require__.r(__webpack_exports__);
         return _this2.fixtures = response.data;
       })["catch"](function (error) {
         return console.log(error);
+      })["finally"](function () {
+        return _this2.$root.loading = false;
       });
     }
   }
@@ -5612,6 +5615,7 @@ __webpack_require__.r(__webpack_exports__);
       teams: {},
       fixtures: {},
       fixture: {},
+      predictions: {},
       week: 1,
       weekCount: 1
     };
@@ -5621,6 +5625,7 @@ __webpack_require__.r(__webpack_exports__);
       this.getFixtureByWeek();
       this.getFixtures();
       this.getTeams();
+      this.getPredictions();
     }
   },
   created: function created() {
@@ -5629,6 +5634,7 @@ __webpack_require__.r(__webpack_exports__);
     this.getTeams();
     this.getFixtures();
     this.getFixtureByWeek();
+    this.getPredictions();
   },
   methods: {
     getWeekCount: function getWeekCount() {
@@ -5672,31 +5678,46 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(error);
       });
     },
-    playWeek: function playWeek() {
+    getPredictions: function getPredictions() {
       var _this6 = this;
 
+      axios.get('/api/simulations/get-predictions').then(function (response) {
+        return _this6.predictions = response.data;
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    },
+    playWeek: function playWeek() {
+      var _this7 = this;
+
       axios.get('/api/simulations/play/' + this.week).then(function () {
-        return _this6.week++;
+        return _this7.week++;
       })["catch"](function (error) {
         return console.log(error);
       });
     },
     playAll: function playAll() {
-      var _this7 = this;
+      var _this8 = this;
 
+      this.$root.loading = true;
       axios.get('/api/simulations/play-all').then(function (response) {
-        return _this7.week = _this7.weekCount;
+        return _this8.week = _this8.weekCount;
       })["catch"](function (error) {
         return console.log(error);
+      })["finally"](function () {
+        return _this8.$root.loading = false;
       });
     },
     refresh: function refresh() {
-      var _this8 = this;
+      var _this9 = this;
 
+      this.$root.loading = true;
       axios.get('/api/simulations/refresh').then(function (response) {
-        return _this8.week = 1;
+        return _this9.week = 1;
       })["catch"](function (error) {
         return console.log(error);
+      })["finally"](function () {
+        return _this9.$root.loading = false;
       });
     }
   }
@@ -28617,11 +28638,11 @@ var render = function () {
             _vm._v(" "),
             _c(
               "tbody",
-              _vm._l(_vm.teams, function (team) {
+              _vm._l(_vm.predictions, function (predict) {
                 return _c("tr", [
-                  _c("td", [_vm._v(_vm._s(team.name))]),
+                  _c("td", [_vm._v(_vm._s(predict.name))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(0))]),
+                  _c("td", [_vm._v(_vm._s(predict.point) + "%")]),
                 ])
               }),
               0
@@ -41026,7 +41047,10 @@ Vue.component('simulation', (__webpack_require__(/*! ./components/Simulation.vue
  */
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    loading: false
+  }
 });
 })();
 

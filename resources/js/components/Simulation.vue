@@ -53,9 +53,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="team in teams">
-                            <td>{{ team.name }}</td>
-                            <td>{{ 0 }}</td>
+                        <tr v-for="predict in predictions">
+                            <td>{{ predict.name }}</td>
+                            <td>{{ predict.point }}%</td>
                         </tr>
                         </tbody>
                     </table>
@@ -101,6 +101,7 @@ export default {
             teams: {},
             fixtures: {},
             fixture: {},
+            predictions: {},
             week: 1,
             weekCount: 1,
         }
@@ -110,6 +111,7 @@ export default {
             this.getFixtureByWeek();
             this.getFixtures();
             this.getTeams();
+            this.getPredictions();
         }
     },
     created() {
@@ -118,6 +120,7 @@ export default {
         this.getTeams();
         this.getFixtures();
         this.getFixtureByWeek();
+        this.getPredictions();
     },
     methods: {
         getWeekCount() {
@@ -143,6 +146,11 @@ export default {
         getFixtureByWeek() {
             axios.get('/api/fixtures/get-by-week/' + this.week)
                 .then(response => this.fixture = response.data)
+                .catch(error => console.log(error))
+        },
+        getPredictions() {
+            axios.get('/api/simulations/get-predictions')
+                .then(response => this.predictions = response.data)
                 .catch(error => console.log(error))
         },
         playWeek() {

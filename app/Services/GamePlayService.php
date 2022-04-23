@@ -36,7 +36,7 @@ class GamePlayService
      */
     public function score(int $power): int
     {
-        if ($this->roll($power, 120)) {
+        if ($this->roll($power, 110)) {
             return 1;
         }
         return 0;
