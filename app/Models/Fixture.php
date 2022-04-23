@@ -15,9 +15,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $home_team_score
  * @property int $away_team_score
  * @property boolean $played
+ * @property Team $homeTeam
+ * @property Team $awayTeam
  * @mixin Builder
  */
-
 class Fixture extends Model
 {
     protected $fillable = [

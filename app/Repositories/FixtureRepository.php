@@ -84,7 +84,10 @@ class FixtureRepository implements FixtureInterface
         return $fixture;
     }
 
-    public function refresh()
+    /**
+     * @return void
+     */
+    public function refresh(): void
     {
         Artisan::call('migrate:refresh', ['--seed' => true]);
     }

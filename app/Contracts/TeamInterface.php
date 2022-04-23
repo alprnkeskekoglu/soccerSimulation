@@ -19,12 +19,6 @@ interface TeamInterface
      */
     public function getAll(): Collection;
 
-    /**
-     * @param Team $team
-     * @return float
-     */
-    public function getChampionshipRate(Team $team): float;
-
 
     /**
      * @param Fixture $fixture

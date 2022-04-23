@@ -12,16 +12,25 @@ use App\Services\PredictionService;
 
 class FixtureController extends Controller
 {
+    /**
+     * @param TeamRepository $teamRepository
+     * @param FixtureRepository $fixtureRepository
+     * @param FixtureGenerateService $fixtureGenerateService
+     * @param PredictionService $predictionService
+     * @param GamePlayService $gamePlayService
+     */
     public function __construct(
-        protected TeamRepository         $teamRepository,
-        protected FixtureRepository      $fixtureRepository,
+        protected TeamRepository $teamRepository,
+        protected FixtureRepository $fixtureRepository,
         protected FixtureGenerateService $fixtureGenerateService,
-        protected PredictionService      $predictionService,
-        protected GamePlayService        $gamePlayService
-    )
-    {
+        protected PredictionService $predictionService,
+        protected GamePlayService $gamePlayService
+    ) {
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getGroupedByWeek()
     {
         $fixtures = $this->fixtureRepository->getGroupedByWeek();
@@ -33,6 +42,10 @@ class FixtureController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * @param int $week
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getByWeek(int $week)
     {
         $fixtures = $this->fixtureRepository->getByWeek($week);
@@ -40,6 +53,10 @@ class FixtureController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function generate()
     {
         $teams = $this->teamRepository->getAll();

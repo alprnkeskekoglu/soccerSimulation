@@ -16,7 +16,7 @@ class GamePlayService
         $awayTeam = $fixture->awayTeam;
 
         $homeScore = $awayScore = 0;
-        for ($i = 10; $i <= 90; $i += 10) {
+        for ($i = 15; $i <= 90; $i += 15) {
             if ($this->roll(55)) { // attack change for homeTeam
                 $homeScore += $this->score($homeTeam->power);
             } else {
@@ -44,9 +44,10 @@ class GamePlayService
 
     /**
      * @param int $change
+     * @param int $max
      * @return bool
      */
-    public function roll(int $change, $max = 100): bool
+    public function roll(int $change, int $max = 100): bool
     {
         if (rand(0, $max) <= $change) {
             return true;

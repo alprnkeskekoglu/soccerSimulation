@@ -25,7 +25,6 @@ class TeamSeeder extends Seeder
 //        Team::create(['name' => 'Everton', 'power' => rand(30, 100)]);
 //        Team::create(['name' => 'Watford', 'power' => rand(30, 100)]);
 //        Team::create(['name' => 'Leicester', 'power' => rand(30, 100)]);
-
 //        Team::create(['name' => 'Bournemouth', 'power' => rand(30, 100)]);
 //        Team::create(['name' => 'Brighton', 'power' => rand(30, 100)]);
 //        Team::create(['name' => 'Burnley', 'power' => rand(30, 100)]);

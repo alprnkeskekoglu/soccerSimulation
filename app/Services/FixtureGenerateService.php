@@ -6,7 +6,9 @@ class FixtureGenerateService
 {
     /**
      * @param array $teams
+     * @param bool $shuffle
      * @return array
+     * @throws \Exception
      */
     public function generate(array $teams, bool $shuffle = true): array
     {

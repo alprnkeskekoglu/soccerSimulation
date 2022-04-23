@@ -7,13 +7,19 @@ use App\Repositories\TeamRepository;
 
 class PredictionService
 {
-
+    /**
+     * @param TeamRepository $teamRepository
+     * @param FixtureRepository $fixtureRepository
+     */
     public function __construct(
-        protected TeamRepository    $teamRepository,
-        protected FixtureRepository $fixtureRepository)
-    {
+        protected TeamRepository $teamRepository,
+        protected FixtureRepository $fixtureRepository
+    ) {
     }
 
+    /**
+     * @return array
+     */
     public function predict(): array
     {
         $teams = $this->teamRepository->getAll();

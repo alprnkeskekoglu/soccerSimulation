@@ -33,14 +33,6 @@ class TeamRepository implements TeamInterface
         return $this->model->orderByDesc('points')->get();
     }
 
-    /**
-     * @param Team $team
-     * @return float
-     */
-    public function getChampionshipRate(Team $team): float
-    {
-        // TODO: Implement getChampionshipRate() method.
-    }
 
     /**
      * @param Fixture $fixture

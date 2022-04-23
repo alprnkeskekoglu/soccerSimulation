@@ -11,34 +11,53 @@ use App\Services\PredictionService;
 
 class SimulationController extends Controller
 {
+    /**
+     * @param TeamRepository $teamRepository
+     * @param FixtureRepository $fixtureRepository
+     * @param FixtureGenerateService $fixtureGenerateService
+     * @param GamePlayService $gamePlayService
+     * @param PredictionService $predictionService
+     */
     public function __construct(
-        protected TeamRepository         $teamRepository,
-        protected FixtureRepository      $fixtureRepository,
+        protected TeamRepository $teamRepository,
+        protected FixtureRepository $fixtureRepository,
         protected FixtureGenerateService $fixtureGenerateService,
-        protected GamePlayService        $gamePlayService,
-        protected PredictionService      $predictionService
-    )
-    {
+        protected GamePlayService $gamePlayService,
+        protected PredictionService $predictionService
+    ) {
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getLastWeek()
     {
         $week = $this->fixtureRepository->getLastWeek();
         return response()->json($week);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getWeekCount()
     {
         $week = $this->fixtureRepository->getWeekCount();
         return response()->json($week);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getPredictions()
     {
         $data = $this->predictionService->predict();
         return response()->json($data);
     }
 
+    /**
+     * @param int $week
+     * @return void
+     */
     public function play(int $week)
     {
         $fixtures = $this->fixtureRepository->getByWeek($week);
@@ -47,6 +66,9 @@ class SimulationController extends Controller
         }
     }
 
+    /**
+     * @return void
+     */
     public function playAll()
     {
         $fixtures = $this->fixtureRepository->getUnplayedMatches();
@@ -55,6 +77,10 @@ class SimulationController extends Controller
         }
     }
 
+    /**
+     * @return void
+     * @throws \Exception
+     */
     public function refresh()
     {
         $this->fixtureRepository->refresh();
@@ -69,6 +95,10 @@ class SimulationController extends Controller
         }
     }
 
+    /**
+     * @param Fixture $fixture
+     * @return void
+     */
     private function playGame(Fixture $fixture)
     {
         $result = [];

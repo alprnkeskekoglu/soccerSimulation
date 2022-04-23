@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $lost,
  * @property int $goals_for,
  * @property int $goals_against,
+ * @property Collection $fixtures
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
  */
