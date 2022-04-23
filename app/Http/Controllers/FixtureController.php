@@ -2,63 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\FixtureResource;
 use App\Models\Fixture;
+use App\Repositories\FixtureRepository;
+use App\Repositories\TeamRepository;
+use App\Services\FixtureGenerateService;
+use App\Services\GamePlayService;
 use Illuminate\Http\Request;
 
 class FixtureController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(
+        protected TeamRepository         $teamRepository,
+        protected FixtureRepository      $fixtureRepository,
+        protected FixtureGenerateService $fixtureGenerateService,
+        protected GamePlayService        $gamePlayService
+    )
     {
-        //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function getGroupedByWeek()
     {
-        //
+        $fixtures = $this->fixtureRepository->getGroupedByWeek();
+        $data = [];
+
+        foreach ($fixtures as $week => $fixture) {
+            $data[$week] = FixtureResource::collection($fixture);
+        }
+        return response()->json($data);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Fixture  $fixture
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Fixture $fixture)
+    public function generate()
     {
-        //
-    }
+        $teams = $this->teamRepository->getAll();
+        $fixtures = $this->fixtureGenerateService->generate($teams->toArray());
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Fixture  $fixture
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Fixture $fixture)
-    {
-        //
-    }
+        foreach ($fixtures as $fixture) {
+            foreach ($fixture as $item) {
+                $this->fixtureRepository->store($item);
+            }
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Fixture  $fixture
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Fixture $fixture)
-    {
-        //
+        return response()->json(['message' => 'Fixtures generated successfully']);
     }
 }
